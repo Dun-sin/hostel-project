@@ -1,53 +1,52 @@
-const roomChosen = document.getElementsByClassName('room');
-const displayRoomChosen = document.getElementById('numberClicked');
-const buildingChosen = document.getElementById('buildingChosen');
-const building1 = document.getElementById('building1');
-const building2 = document.getElementById('building2');
-const popup = document.getElementById('popup');
-const closeButton = document.getElementById('close');
-const confirmButton = document.getElementById('confirm');
-const noButton = document.getElementById('no');
-const yesButton = document.getElementById('yes');
+const buildings = document.querySelectorAll('.hostel-rooms');
+const confirmButton = document.querySelector('.confirm-button');
+const modal = document.querySelector('.confirmation-modal');
+const modalBody = document.querySelector('.modal-body');
 
-for (let i; i < roomChosen.length; i++) {
-  namingRoom(room[i]);
+const selectedRoom = document.querySelector('#selected-room');
+const selectedHostel = document.querySelector('#selected-hostel');
+
+const generateRooms = (total) => {
+  let rooms = Array(total)
+    .fill()
+    .map((_, i) => `<p class="room">M${i + 1}</p>`)
+    .join('');
+
+  for (let building of buildings) {
+    building.innerHTML = rooms;
+  }
+
+  initializeRoomSelection();
 }
 
-function namingRoom(e) {
-  e.addEventListener('click', () => {
-    displayRoomChosen.innerText = e.innerText;
-  })
+const toggleModal = () => {
+  modal.classList.toggle('modal-visible');
 }
 
-// gets the element
-// for (let i = 0; i < roomChosen.length; i++) {
-//   // what to do when a number gets clicked
-//   roomChosen[i].addEventListener('click', () => {
-//     // checks if the number clicked is in a building to display which building gets clicked
-//     if (building1 !== roomChosen[i] && building1.contains(roomChosen[i])) {
-//       buildingChosen.innerText = 'Building 1';
-//     } else if (
-//       building2 !== roomChosen[i] &&
-//       building2.contains(roomChosen[i])
-//     ) {
-//       buildingChosen.innerText = 'Building 2';
-//     }
-//     // displays the room chosen
-//     displayRoomChosen.innerText = roomChosen[i].innerHTML;
-//   });
-// }
-
-const settingToNone = (e) => {
-  e.addEventListener('click', () => {
-    popup.style.display = 'none';
-  })
+const initializeModal = () => {
+  confirmButton.addEventListener('click', toggleModal);
+  modal.addEventListener('click', toggleModal);
+  modalBody.addEventListener('click', (e) => e.stopPropagation());
 }
 
-const arrayOfElements = [closeButton, noButton, yesButton];
-arrayOfElements.forEach((e) => {
-  settingToNone(e)
-});
+const initializeRoomSelection = () => {
+  let availableRooms = document.querySelectorAll('.room');
+  for (room of availableRooms) {
+    room.addEventListener('click', selectRoom);
+  }
+}
 
-confirmButton.addEventListener('click', () => {
-  popup.style.display = 'block';
-});
+const selectRoom = (e) => {
+  let info = {
+    hostel: e.srcElement.parentElement.dataset.hostel,
+    room: e.srcElement.innerText,
+  }
+
+  selectedRoom.innerText = info.room;
+  selectedHostel.innerText = info.hostel;
+}
+
+(() => {
+  generateRooms(50);
+  initializeModal();
+})();
