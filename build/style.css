@@ -1,16 +1,6 @@
-:root {
-  --height-of-container: 100vh;
-  --width-of-container: 100vw;
-  --height-of-hostel: 400px;
-  --width-of-hostel: 300px;
-  --main-color: #d3d4ff;
-  --primary-color: #070944;
-  --secondary-color: #edeef5;
-}
-
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */
@@ -21,213 +11,159 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
   border-radius: 10px;
 }
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   user-select: none;
 }
 
-.hostel__container {
-  top: 10px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+body {
+  font-family: sans-serif;
+  overflow-x: hidden;
 }
 
-.hostels {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-.hhostels {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.hostel {
-  height: calc(var(--height-of-container) / 1.2);
-  width: calc(var(--width-of-container) / 1.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.hostel__building {
-  height: inherit;
-  width: inherit;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.building__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.building {
-  margin: 20px;
-  height: var(--height-of-hostel);
-  width: var(--width-of-hostel);
-  background-color: var(--secondary-color);
-  border: 1px solid var(--main-color);
-  border-radius: 30px;
-  box-shadow: 5px 5px 20px var(--main-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.building__rooms {
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: flex-start;
-  flex-wrap: wrap;
-  overflow-y: hidden;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-}
-
-.room {
-  color: var(--primary-color);
-  height: 40px;
-  width: 40px;
-  background-color: #f5f6ff;
-  border: 1px solid var(--primary-color);
-  margin: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  transition: all 0.3s ease-in;
-  cursor: pointer;
-}
-.room:hover {
-  background-color: var(--primary-color);
-  color: #f5f6ff;
-}
-
-#confirm {
-  width: 70px;
-  padding: 25px;
-}
-
-.confirmationPopup {
-  position: fixed;
-  height: 100vh;
+.main-view {
+  padding: 5em 0;
   width: 100vw;
-  background-color: #151637c2;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.popup__message {
-  position: relative;
-  height: 250px;
-  width: 400px;
+.main-view .hostels {
+  width: 1000px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main-view .hostels .title {
+  margin-bottom: 2em;
   text-align: center;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid var(--primary-color);
-  border-radius: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--secondary-color);
 }
-
-.message {
-  font-size: 20px;
-  color: var(--primary-color);
+.main-view .hostels .buildings {
+  width: 100%;
+  height: auto;
+  margin-bottom: 2em;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-evenly;
 }
-
-.warning {
+.main-view .hostels .buildings .hostel {
+  overflow-y: scroll;
+  min-width: 300px;
+  max-width: 300px;
+  max-height: 400px;
+  min-height: 400px;
+  border-radius: 15px;
+  padding: 1em;
+  border: 1px solid #070944;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.main-view .hostels .buildings .hostel .hostel-title {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 2rem;
+  margin-bottom: 1.5em;
 }
-
-.btn__container {
+.main-view .hostels .buildings .hostel .hostel-rooms {
+  width: 100%;
+  justify-content: center;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.main-view .hostels .buildings .hostel .hostel-rooms .room {
+  border: 1px solid #070944;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  transition: 0.2s ease;
+}
+.main-view .hostels .buildings .hostel .hostel-rooms .room:hover {
+  background-color: #d3d4ff;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.main-view .hostels .actions .confirm-button {
+  padding: 1em 3em;
+  background: #070944;
+  border: none;
+  color: #d3d4ff;
+  border-radius: 15px;
 }
 
-.btn {
-  cursor: pointer;
-  height: 40px;
-  width: 60px;
-  margin: 20px;
-  border: 1px solid var(--primary-color);
+.confirmation-modal {
+  width: 100vw;
+  height: 100vh;
+  background-color: #07094479;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.confirmation-modal .modal-body {
+  width: 400px;
+  border-radius: 15px;
+  height: 300px;
+  background-color: #edeef5;
+  border: 1px solid #070944;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+}
+.confirmation-modal .modal-body .body-question {
+  margin: 5px;
+  color: #070944;
+}
+.confirmation-modal .modal-body .body-warning {
+  font-size: 1rem;
+  color: #491717;
+  font-weight: 700;
+}
+.confirmation-modal .modal-body .body-options {
+  margin-top: 20px;
+}
+.confirmation-modal .modal-body .body-options .btn {
+  color: #d3d4ff;
+  font-size: 1rem;
+  border: 1px solid #070944;
   border-radius: 10px;
-  background-color: var(--primary-color);
+  height: 50px;
+  width: 70px;
+  transition: all 0.1s ease-in;
+}
+.confirmation-modal .modal-body .body-options .btn:hover {
+  background-color: #d3d4ff;
+  color: #000;
+}
+.confirmation-modal .modal-body .body-options .yes {
+  background-color: #070944;
+  margin-left: 30px;
+}
+.confirmation-modal .modal-body .body-options .no {
+  color: #000;
+}
+
+.modal-visible {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #f4f4fc;
-  transition: all 0.25s ease-in;
-}
-.btn:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-.no {
-  background-color: var(--main-color);
-  color: var(--primary-color);
-}
-
-.close {
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  top: 150px;
-  justify-content: center;
-  align-items: center;
-  left: 76.9230769231vw;
-  height: 20px;
-  width: 20px;
-  background-color: transparent;
-}
-
-.left,
-.right {
-  position: absolute;
-  border-radius: 40px;
-  height: 20px;
-  width: 5px;
-  background-color: var(--main-color);
-  border: 1px solid var(--primary-color);
-}
-
-.left {
-  transform: skewX(-30deg);
-}
-
-.right {
-  transform: skewX(30deg);
 }
 
 /*# sourceMappingURL=style.css.map */

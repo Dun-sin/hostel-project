@@ -1,53 +1,81 @@
-const roomChosen = document.getElementsByClassName('room');
-const displayRoomChosen = document.getElementById('numberClicked');
-const buildingChosen = document.getElementById('buildingChosen');
-const building1 = document.getElementById('building1');
-const building2 = document.getElementById('building2');
-const popup = document.getElementById('popup');
-const closeButton = document.getElementById('close');
-const confirmButton = document.getElementById('confirm');
-const noButton = document.getElementById('no');
-const yesButton = document.getElementById('yes');
+const buildings = document.querySelectorAll('.hostel-rooms');
+const confirmButton = document.querySelector('.confirm-button');
+const modal = document.querySelector('.confirmation-modal');
+const modalBody = document.querySelector('.modal-body');
 
-for (let i; i < roomChosen.length; i++) {
-  namingRoom(room[i]);
+const buildingOne = document.querySelector('#hostelOne')
+const buildingTwo = document.querySelector('#hostelTwo')
+
+const selectedRoom = document.querySelector('#selected-room');
+const selectedHostel = document.querySelector('#selected-hostel');
+
+const yesButton = document.querySelector('#yes');
+const noButton = document.querySelector('#no');
+
+// generate the number of rooms
+const generateRooms = (total) => {
+  let rooms = Array(total)
+    .fill()
+    .map((_, i) => `<p class="room">M${i + 1}</p>`)
+    .join('');
+
+  for (let building of buildings) {
+    building.innerHTML = rooms;
+  }
+
+  initializeRoomSelection();
 }
 
-function namingRoom(e) {
-  e.addEventListener('click', () => {
-    displayRoomChosen.innerText = e.innerText;
-  })
+
+// what to do when a use clicks on a room
+const initializeRoomSelection = () => {
+  let availableRooms = document.querySelectorAll('.room');
+  for (room of availableRooms) {
+    room.addEventListener('click', selectRoom);
+  }
 }
 
-// gets the element
-// for (let i = 0; i < roomChosen.length; i++) {
-//   // what to do when a number gets clicked
-//   roomChosen[i].addEventListener('click', () => {
-//     // checks if the number clicked is in a building to display which building gets clicked
-//     if (building1 !== roomChosen[i] && building1.contains(roomChosen[i])) {
-//       buildingChosen.innerText = 'Building 1';
-//     } else if (
-//       building2 !== roomChosen[i] &&
-//       building2.contains(roomChosen[i])
-//     ) {
-//       buildingChosen.innerText = 'Building 2';
-//     }
-//     // displays the room chosen
-//     displayRoomChosen.innerText = roomChosen[i].innerHTML;
-//   });
-// }
-
-const settingToNone = (e) => {
-  e.addEventListener('click', () => {
-    popup.style.display = 'none';
-  })
+// checked which hostel the room picked belongs
+const checkIfParent = (c) => {
+  if (c.parentElement.id == 'hostelOne') {
+    selectedHostel.innerText = 'Hostel One';
+  } else if (c.parentElement.id == 'hostelTwo') {
+    selectedHostel.innerText = 'Hostel Two';
+  }
 }
 
-const arrayOfElements = [closeButton, noButton, yesButton];
-arrayOfElements.forEach((e) => {
-  settingToNone(e)
-});
+// displays the selected rooms
+const selectRoom = (e) => {
+  let info = {
+    room: e.srcElement.innerText
+  }
 
-confirmButton.addEventListener('click', () => {
-  popup.style.display = 'block';
-});
+  // console.log(.parentElement);
+  checkIfParent(e.srcElement);
+  selectedRoom.innerText = info.room;
+}
+
+// toggle of the modal/popup
+const toggleModal = () => {
+  modal.classList.toggle('modal-visible');
+}
+
+// what triggers the popup
+const initializeModal = () => {
+  confirmButton.addEventListener('click', toggleModal);
+
+  function buttonCanToogle(e) {
+    e.addEventListener('click', toggleModal);
+  }
+
+  const buttons = [modal, yesButton, noButton];
+  buttons.forEach(buttonCanToogle);
+
+  modalBody.addEventListener('click', (e) => e.stopPropagation());
+}
+
+// creating and calling the function at the same time
+(() => {
+  generateRooms(50);
+  initializeModal();
+})();

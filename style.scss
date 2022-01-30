@@ -1,18 +1,16 @@
 // Variables
-:root {
-	--height-of-container: 100vh;
-	--width-of-container: 100vw;
-	--height-of-hostel: 400px;
-	--width-of-hostel: 300px;
-	--main-color: #d3d4ff;
-	--primary-color: #070944;
-	--secondary-color: #edeef5;
-}
+$height-of-container: 100vh;
+$width-of-container: 100vw;
+$height-of-hostel: 400px;
+$width-of-hostel: 300px;
+$main-color: #d3d4ff;
+$primary-color: #070944;
+$secondary-color: #edeef5;
 
 // ScrollBar
 /* width */
 ::-webkit-scrollbar {
-	width: 10px;
+	width: 5px;
 }
 
 /* Track */
@@ -23,214 +21,178 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: var(--primary-color);
 	border-radius: 10px;
 }
 
-* {
+*,
+*::before,
+*::after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	user-select: none;
 }
 
-// Hostel Choosing
-.hostel__container {
-	top: 10px;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
+body {
+	font-family: sans-serif;
+	overflow-x: hidden;
 }
 
-.hostels {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-}
-
-.hhostels {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-}
-
-.hostel {
-	height: calc(var(--height-of-container) / 1.2);
-	width: calc(var(--width-of-container) / 1.2);
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.hostel__building {
-	height: inherit;
-	width: inherit;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-content: flex-start;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.building__container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.building {
-	margin: 20px;
-	height: var(--height-of-hostel);
-	width: var(--width-of-hostel);
-	background-color: var(--secondary-color);
-	border: 1px solid var(--main-color);
-	border-radius: 30px;
-	box-shadow: 5px 5px 20px var(--main-color);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.building__rooms {
-	margin: 20px;
+.main-view {
+	padding: 5em 0;
+	width: $width-of-container;
+	min-height: $height-of-container;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	align-content: flex-start;
-	flex-wrap: wrap;
-	overflow-y: hidden;
-	overflow-y: scroll;
-	scroll-behavior: smooth;
-}
 
-.room {
-	color: var(--primary-color);
-	height: 40px;
-	width: 40px;
-	background-color: #f5f6ff;
-	border: 1px solid var(--primary-color);
-	margin: 2px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 10px;
-	transition: all 0.3s ease-in;
-	cursor: pointer;
-	&:hover {
-		background-color: var(--primary-color);
-		color: #f5f6ff;
+	.hostels {
+		width: 1000px;
+		min-height: $height-of-hostel;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.title {
+			margin-bottom: 2em;
+			text-align: center;
+		}
+
+		.buildings {
+			width: 100%;
+			height: auto;
+			margin-bottom: 2em;
+
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-evenly;
+
+			.hostel {
+				overflow-y: scroll;
+				min-width: $width-of-hostel;
+				max-width: $width-of-hostel;
+				max-height: $height-of-hostel;
+				min-height: $height-of-hostel;
+				border-radius: 15px;
+				padding: 1em;
+				border: 1px solid $primary-color;
+				margin-bottom: 1em;
+
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+
+				.hostel-title {
+					font-weight: 600;
+					font-size: 2rem;
+					margin-bottom: 1.5em;
+				}
+
+				.hostel-rooms {
+					width: 100%;
+					justify-content: center;
+					display: flex;
+					flex-wrap: wrap;
+
+					.room {
+						border: 1px solid $primary-color;
+						border-radius: 5px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						margin: 10px;
+						width: 50px;
+						height: 50px;
+						transition: 0.2s ease;
+
+						&:hover {
+							background-color: $main-color;
+							cursor: pointer;
+							transition: 0.2s ease;
+						}
+					}
+				}
+			}
+		}
+		.actions {
+			.confirm-button {
+				padding: 1em 3em;
+				background: $primary-color;
+				border: none;
+				color: $main-color;
+				border-radius: 15px;
+			}
+		}
 	}
 }
 
-#confirm {
-	width: 70px;
-	padding: 25px;
-}
-
-// Confirmation PopUp
-.confirmationPopup {
+.confirmation-modal {
+	width: $width-of-container;
+	height: $height-of-container;
+	background-color: #07094479;
 	position: fixed;
-	height: 100vh;
-	width: 100vw;
-	background-color: #151637c2;
-}
+	top: 0;
+	left: 0;
+	z-index: 3;
 
-.popup__message {
-	position: relative;
-	height: 250px;
-	width: 400px;
-	text-align: center;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	border: 1px solid var(--primary-color);
-	border-radius: 50px;
-	display: flex;
-	flex-direction: column;
+	display: none;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--secondary-color);
-}
 
-.message {
-	font-size: 20px;
-	color: var(--primary-color);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
+	.modal-body {
+		width: 400px;
+		border-radius: 15px;
+		height: 300px;
+		background-color: $secondary-color;
+		border: 1px solid $primary-color;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		font-size: 1.3rem;
 
-.warning {
-	font-weight: 600;
-	font-size: 15px;
-}
+		.body-question {
+			margin: 5px;
+			color: $primary-color;
+		}
 
-.btn__container {
-	display: flex;
-	justify-content: space-between;
-}
+		.body-warning {
+			font-size: 1rem;
+			color: rgb(73, 23, 23);
+			font-weight: 700;
+		}
+		.body-options {
+			margin-top: 20px;
 
-.btn {
-	cursor: pointer;
-	height: 40px;
-	width: 60px;
-	margin: 20px;
-	border: 1px solid var(--primary-color);
-	border-radius: 10px;
-	background-color: var(--primary-color);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #f4f4fc;
-	transition: all 0.25s ease-in;
+			.btn {
+				color: $main-color;
+				font-size: 1rem;
+				border: 1px solid $primary-color;
+				border-radius: 10px;
+				height: 50px;
+				width: 70px;
+				transition: all 0.1s ease-in;
 
-	&:hover {
-		background-color: var(--secondary-color);
-		color: var(--primary-color);
+				&:hover {
+					background-color: $main-color;
+					color: #000;
+				}
+			}
+
+			.yes {
+				background-color: $primary-color;
+				margin-left: 30px;
+			}
+
+			.no {
+				color: #000;
+			}
+		}
 	}
 }
 
-.no {
-	background-color: var(--main-color);
-	color: var(--primary-color);
-}
-
-.close {
-	cursor: pointer;
-	position: relative;
+.modal-visible {
 	display: flex;
-	top: 150px;
-	justify-content: center;
-	align-items: center;
-	left: calc(100vw / 1.3);
-	height: 20px;
-	width: 20px;
-	background-color: transparent;
-}
-
-.left,
-.right {
-	position: absolute;
-	border-radius: 40px;
-	height: 20px;
-	width: calc(50px / 10);
-	background-color: var(--main-color);
-	border: 1px solid var(--primary-color);
-}
-
-.left {
-	transform: skewX(-30deg);
-}
-
-.right {
-	transform: skewX(30deg);
 }
