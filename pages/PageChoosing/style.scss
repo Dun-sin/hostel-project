@@ -10,7 +10,7 @@ $secondary-color: #edeef5;
 // ScrollBar
 /* width */
 ::-webkit-scrollbar {
-	width: 5px;
+	width: 1px;
 }
 
 /* Track */
@@ -39,7 +39,7 @@ body {
 }
 
 .main-view {
-	padding: 5em 0;
+	padding: 2em 0;
 	width: $width-of-container;
 	min-height: $height-of-container;
 	display: flex;
@@ -57,6 +57,11 @@ body {
 		.title {
 			margin-bottom: 2em;
 			text-align: center;
+
+			#errors {
+				color: rgb(214, 4, 4);
+				font-weight: 700;
+			}
 		}
 
 		.buildings {
@@ -113,8 +118,24 @@ body {
 							transition: 0.2s ease;
 						}
 					}
+					#pickedRoom {
+						&:hover {
+							background-color: $main-color;
+						}
+					}
 				}
 			}
+		}
+
+		select {
+			margin-top: -30px;
+			border-radius: 10px;
+			margin-bottom: 20px;
+			height: 22px;
+			width: 150px;
+			background-color: transparent;
+			border: 1px solid $primary-color;
+			outline: none;
 		}
 		.actions {
 			.confirm-button {

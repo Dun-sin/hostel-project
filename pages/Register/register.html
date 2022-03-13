@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./build/register.css" />
+		<script src="./register.js" defer></script>
+		<title>Register</title>
+	</head>
+	<body>
+		<main>
+			<h2>Hostel Registration</h2>
+			<form id="form">
+				<input type="text" id="fname" placeholder="First Name" />
+				<input type="text" id="lname" placeholder="Last Name" />
+				<input type="email" id="email" placeholder="School Email" />
+				<input type="password" id="pass" placeholder="School Password" />
+				<input type="password" id="cpass" placeholder="Confirm Password" />
+        <select id="gender">
+          <option value="Select Your Gender">Select Your Gender</option>
+          <option value="Female">Female</option>
+          <option value="Male">Male</option>
+        </select>
+				<select id="level">
+					<option value="Select Your Level">Select Your Level</option>
+					<option value="100">100 Level</option>
+					<option value="200">200 Level</option>
+				</select>
+				<select id="fac">
+					<option value="Select Your Faculty">Select Your Faculty</option>
+					<option value="Basic and Applied Science">
+						Basic and Applied Science
+					</option>
+					<option value="Engineering">Engineering</option>
+					<option value="Law">Law</option>
+					<option value="Social and Management Sciences">
+						Social and Management Sciences
+					</option>
+					<option value="Humanities">Humanities</option>
+				</select>
+				<select id="programme">
+					<option value="Select Your Programme">Select Your Programme</option>
+					<optgroup label="Administration">
+						<option value="Accountancy/Accounting">
+							Accountancy/Accounting
+						</option>
+						<option value="Business Administration">
+							Business Administration
+						</option>
+						<option value="Banking And Finance">Banking And Finance</option>
+					</optgroup>
+					<optgroup label="Agriculture">
+						<option value="Hotel Management And Tourism">
+							Hotel Management And Tourism
+						</option>
+					</optgroup>
+					<optgroup label="Arts And Humanities">
+						<option value="English Language">English Language</option>
+						<option value="History And Diplomatic Studies">
+							History And Diplomatic Studies
+						</option>
+						<option value="Performing Arts">Performing Arts</option>
+					</optgroup>
+					<optgroup label="Engineering">
+						<option value="Automotive Engineering">
+							Automotive Engineering
+						</option>
+						<option value="Civil Engineering">Civil Engineering</option>
+						<option value="Computer Engineering">Computer Engineering</option>
+						<option value="Electrical /Electronics Engineering">
+							Electrical /Electronics Engineering
+						</option>
+						<option value="Information And Communication Technology">
+							Information And Communication Technology
+						</option>
+						<option value="Mechanical Engineering">
+							Mechanical Engineering
+						</option>
+					</optgroup>
+					<optgroup label="Sciences">
+						<option value="Applied Geophysics">Applied Geophysics</option>
+						<option value="Biochemistry">Biochemistry</option>
+						<option value="Biology">Biology</option>
+						<option value="Biotechnology">Biotechnology</option>
+						<option value="Chemistry">Chemistry</option>
+						<option value="Computer Science">Computer Science</option>
+						<option value="Environmental Management And Toxicology">
+							Environmental Management And Toxicology
+						</option>
+						<option value="Industrial And Production Engineering">
+							Industrial And Production Engineering
+						</option>
+						<option value="Mathematics">Mathematics</option>
+						<option value="Microbiology">Microbiology</option>
+						<option value="Physics">Physics</option>
+						<option value="Physics With Electronics">
+							Physics With Electronics
+						</option>
+					</optgroup>
+					<optgroup label="Social Sciences">
+						<option value="Economics">Economics</option>
+						<option value="Human Resources Management">
+							Human Resources Management
+						</option>
+						<option value="International Relations And Diplomacy">
+							International Relations And Diplomacy
+						</option>
+						<option value="Mass Communication">Mass Communication</option>
+						<option value="Office And Information Management">
+							Office And Information Management
+						</option>
+					</optgroup>
+				</select>
+				<button type="submit">Register</button>
+			</form>
+		</main>
+		<div id="error"></div>
+	</body>
+</html

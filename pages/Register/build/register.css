@@ -1,0 +1,94 @@
+body {
+  background-color: #07094448;
+  overflow: hidden;
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #070944;
+  font-size: 18px;
+}
+
+main {
+  border-radius: 20px;
+  width: 350px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  background-color: #dfe2ff;
+}
+main h2 {
+  font-size: 20px;
+}
+main form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+main form input {
+  border: 1px solid #d3d4ff;
+  border-radius: 6px;
+  padding: 5px;
+  height: 20px;
+  width: 269.2307692308px;
+  margin-bottom: 10px;
+  transition: all 500ms ease-in-out;
+}
+main form input:focus {
+  border: 1px solid #070944;
+  outline: none;
+}
+main form select {
+  border: none;
+  margin-bottom: 5px;
+  height: 22px;
+  width: 280px;
+}
+main form select:focus {
+  border: 1px solid #070944;
+  outline: none;
+}
+main form button {
+  margin-top: 20px;
+  margin-left: 31.25%;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background-color: #070944;
+  color: white;
+  height: 30px;
+  width: 100px;
+  transition: all 500ms ease-in;
+}
+main form button:hover {
+  box-shadow: inset 100px 0 0 0 #d3d4ff;
+  border: 1px solid #070944;
+  background-color: transparent;
+  color: #070944;
+}
+
+#error {
+  position: absolute;
+  font-size: 20px;
+  color: red;
+  font-weight: 500;
+  height: 50px;
+  width: 250px;
+  top: 0;
+  right: 0;
+}
+#error p {
+  padding: 10px;
+  margin: 0;
+  margin-bottom: 10px;
+  background-color: #070944;
+  color: #dfe2ff;
+}
+
+/*# sourceMappingURL=register.css.map */

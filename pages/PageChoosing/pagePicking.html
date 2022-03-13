@@ -4,40 +4,39 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/build/style.css" />
-		<script src="/script.js" defer></script>
+		<link rel="stylesheet" href="./build/style.css" />
+		<script src="./script.js" defer></script>
 		<title>Hostel Pick</title>
 	</head>
 	<body>
 		<section class="main-view">
 			<div class="hostels">
 				<div class="title">
-					<h2>You Picked: Boys Hostel</h2>
-					<p>
-						You Choose Room: <span id="selected-room">...</span> in
-						<span id="selected-hostel">...</span>
-					</p>
+					<h2>You Choose Room: <span id="selected-room">...</span></h2>
+					<div id="errors">
+						<span id="taken" style="display: none"
+							>Room unavailable pick another</span
+						>
+						<span id="picked" style="display: none"
+							>You already have a room</span
+						>
+					</div>
 				</div>
-
 				<div class="buildings">
-					<div class="hostel">
-						<p class="hostel-title">Boys Hostel 1</p>
-						<div
-							class="hostel-rooms"
-							id="hostelOne"
-							data-hostel="Boys Hostel 1"
-						></div>
+					<div class="hostel girlshostel">
+						<p class="hostel-title">Girls Hostel</p>
+						<div class="hostel-rooms"></div>
 					</div>
-					<div class="hostel">
-						<p class="hostel-title">Boys Hostel 2</p>
-						<div
-							class="hostel-rooms"
-							id="hostelTwo"
-							data-hostel="Boys Hostel 2"
-						></div>
+					<div class="hostel boyshostel">
+						<p class="hostel-title">Boys Hostel</p>
+						<div class="hostel-rooms"></div>
 					</div>
 				</div>
-
+				<select id="level">
+					<option value="pick your level">Pick Your Level</option>
+					<option value="100">100Lvl</option>
+					<option value="200">200Lvl</option>
+				</select>
 				<div class="actions">
 					<button class="confirm-button">Confirm</button>
 				</div>

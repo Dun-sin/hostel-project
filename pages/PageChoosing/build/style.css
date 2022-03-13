@@ -1,6 +1,6 @@
 /* width */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 1px;
 }
 
 /* Track */
@@ -29,7 +29,7 @@ body {
 }
 
 .main-view {
-  padding: 5em 0;
+  padding: 2em 0;
   width: 100vw;
   min-height: 100vh;
   display: flex;
@@ -46,6 +46,10 @@ body {
 .main-view .hostels .title {
   margin-bottom: 2em;
   text-align: center;
+}
+.main-view .hostels .title #errors {
+  color: #d60404;
+  font-weight: 700;
 }
 .main-view .hostels .buildings {
   width: 100%;
@@ -96,6 +100,19 @@ body {
   background-color: #d3d4ff;
   cursor: pointer;
   transition: 0.2s ease;
+}
+.main-view .hostels .buildings .hostel .hostel-rooms #pickedRoom:hover {
+  background-color: #d3d4ff;
+}
+.main-view .hostels select {
+  margin-top: -30px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 22px;
+  width: 150px;
+  background-color: transparent;
+  border: 1px solid #070944;
+  outline: none;
 }
 .main-view .hostels .actions .confirm-button {
   padding: 1em 3em;

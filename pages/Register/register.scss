@@ -1,0 +1,107 @@
+$height-of-container: 90vh;
+$width-of-container: 100vw;
+$width-of-login: 350px;
+$height-of-login: 400px;
+$main-color: #d3d4ff;
+$primary-color: #070944;
+$secondary-color: #dfe2ff;
+
+body {
+	background-color: #07094448;
+	overflow: hidden;
+	height: $height-of-container;
+	width: $width-of-container;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: $primary-color;
+	font-size: 18px;
+}
+
+main {
+	border-radius: 20px;
+	width: $width-of-login;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+	background-color: $secondary-color;
+
+	h2 {
+		font-size: 20px;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 10px;
+		display: flex;
+		align-items: flex-start;
+
+		input {
+			border: 1px solid $main-color;
+			border-radius: 6px;
+			padding: 5px;
+			height: 20px;
+			width: calc($width-of-login / 1.3);
+			margin-bottom: 10px;
+			transition: all 500ms ease-in-out;
+
+			&:focus {
+				border: 1px solid $primary-color;
+				outline: none;
+			}
+		}
+
+		select {
+			border: none;
+			margin-bottom: 5px;
+			height: 22px;
+			width: calc($width-of-login / 1.25);
+
+			&:focus {
+				border: 1px solid $primary-color;
+				outline: none;
+			}
+		}
+		button {
+			margin-top: 20px;
+			margin-left: calc(50% / 1.6);
+			border-radius: 10px;
+			outline: none;
+			border: none;
+			background-color: $primary-color;
+			color: white;
+			height: 30px;
+			width: 100px;
+			transition: all 500ms ease-in;
+
+			&:hover {
+				box-shadow: inset 100px 0 0 0 $main-color;
+				border: 1px solid $primary-color;
+				background-color: transparent;
+				color: $primary-color;
+			}
+		}
+	}
+}
+
+#error {
+	position: absolute;
+	font-size: 20px;
+	color: red;
+	font-weight: 500;
+	height: 50px;
+	width: 250px;
+	top: 0;
+	right: 0;
+	p {
+		padding: 10px;
+		margin: 0;
+		margin-bottom: 10px;
+		background-color: $primary-color;
+		color: $secondary-color;
+	}
+}
