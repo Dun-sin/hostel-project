@@ -99,15 +99,15 @@ main {
 	.hostel {
 		margin-top: 10px;
 		color: $primary-color;
-		border: 0.3px $primary-color solid;
+		border: 0.1px $primary-color solid;
 		height: 400px;
 		max-width: 300px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		transition: all 400ms ease-in;
+		transition: all 200ms ease-in;
 		&:hover {
-			box-shadow: 5px 5px 10px black;
+			box-shadow: 2px 2px 10px black;
 			border: none;
 		}
 		.slider {
@@ -148,4 +148,10 @@ main {
 			}
 		}
 	}
+}
+
+.loading {
+	font-size: 4em;
+	color: $primary-color;
+	font-weight: 700;
 }

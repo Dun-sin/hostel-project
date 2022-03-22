@@ -91,16 +91,16 @@ main {
 main .hostel {
   margin-top: 10px;
   color: #070944;
-  border: 0.3px #070944 solid;
+  border: 0.1px #070944 solid;
   height: 400px;
   max-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 400ms ease-in;
+  transition: all 200ms ease-in;
 }
 main .hostel:hover {
-  box-shadow: 5px 5px 10px black;
+  box-shadow: 2px 2px 10px black;
   border: none;
 }
 main .hostel .slider {
@@ -138,6 +138,12 @@ main .hostel .btn:hover {
   border: 1px solid #070944;
   background-color: transparent;
   color: #070944;
+}
+
+.loading {
+  font-size: 4em;
+  color: #070944;
+  font-weight: 700;
 }
 
 /*# sourceMappingURL=index.css.map */
