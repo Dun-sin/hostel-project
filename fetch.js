@@ -1,3 +1,5 @@
+choosingButtonThatShouldWork();
+
 const loaded = document.querySelector('.loading');
 const btn = document.querySelectorAll('.btnHostel');
 
@@ -15,12 +17,12 @@ let loadedInfo = {
 /**
  * it chooses which of the gender hostel you are allowed to click on based on your gender
  */
-async function choosingButtonThatShouldWork() {
+function choosingButtonThatShouldWork() {
 	let gender;
 	fetch(`http://localhost:4000/getGender?email=${email}`)
 		.then((res) => {
 			res.json().then((data) => {
-				gender = await data;
+				gender = data;
 				if (gender === 'Female') {
 					boyBtn.disabled = true;
 					girlBtn.disabled = false;
@@ -35,6 +37,7 @@ async function choosingButtonThatShouldWork() {
 					});
 				});
 				checkingRoom();
+				loadedInfo.gender = true;
 			});
 		})
 		.catch((err) => {
@@ -45,18 +48,18 @@ async function choosingButtonThatShouldWork() {
 /**
  * function to check if the user already has a room
  */
-async function checkingRoom() {
+function checkingRoom() {
 	fetch(`http://localhost:4000/checkRoom?email=${email}`)
 		.then((res) => res.json())
-		.then(
-			(data) =>
-				await data.forEach((result) => {
-					const room = result.room;
-					if (room === null || room === '') {
-						window.localStorage.setItem('haveRoom', false);
-					} else {
-						window.localStorage.setItem('haveRoom', true);
-					}
-				}),
-		);
+		.then((data) => {
+			data.forEach((result) => {
+				const room = result.room;
+				if (room === null || room === '') {
+					window.localStorage.setItem('haveRoom', false);
+				} else {
+					window.localStorage.setItem('haveRoom', true);
+				}
+			});
+			loadedInfo.room = true;
+		});
 }
