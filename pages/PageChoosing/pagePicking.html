@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./build/style.css" />
+		<script src="../../fetch.js" defer></script>
 		<script src="./script.js" defer></script>
 		<title>Hostel Pick</title>
 	</head>
@@ -33,9 +34,9 @@
 					</div>
 				</div>
 				<select id="level">
-					<option value="pick your level">Pick Your Level</option>
-					<option value="100">100Lvl</option>
-					<option value="200">200Lvl</option>
+					<option value="Select a Level">Select a Level</option>
+					<option value="100">100 Level</option>
+					<option value="200">200 level</option>
 				</select>
 				<div class="actions">
 					<button class="confirm-button">Confirm</button>
@@ -53,6 +54,13 @@
 					<button class="btn yes" id="yes">YES</button>
 				</div>
 			</div>
+		</div>
+
+		<div class="loading">
+			<div>
+				<div class="dot"></div>
+			</div>
+			<p>Please wait</p>
 		</div>
 	</body>
 </html>

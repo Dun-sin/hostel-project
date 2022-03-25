@@ -177,7 +177,7 @@ const collectingInfo = (
 			firstName = firstName.toLowerCase();
 			lastName = lastName.toLowerCase();
 			fetch(
-				`http://localhost:4000/addstudent?fName=${firstName}&lName=${lastName}&email=${email}&password=${password}&faculty=${faculty}&programme=${programme}&gender=${gender}`,
+				`https://hostel-picking.herokuapp.com/addstudent?fName=${firstName}&lName=${lastName}&email=${email}&password=${password}&faculty=${faculty}&programme=${programme}&gender=${gender}`,
 			).then((res) => {
 				switch (res.status) {
 					case 409:
@@ -214,7 +214,6 @@ const collectingInfo = (
 		case false:
 			break;
 		case true:
-			console.log('submitted');
 			submit();
 			break;
 	}

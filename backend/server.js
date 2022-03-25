@@ -1,22 +1,31 @@
 const mysql = require('mysql');
 const express = require('express');
-const cors = require('cors');
 const app = express();
 
-app.use(cors());
+const PORT = process.env.PORT || 3000;
+const dbConfig = require('./db.config');
+
+const cors = require('cors');
+const corsOptions = {
+	origin: ['http://localhost:5500/'],
+	credentials: true,
+	methods: 'GET',
+};
+
+app.use(cors(corsOptions));
 
 const connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'dunsin12345',
-	database: 'testing2',
+	host: dbConfig.HOST,
+	user: dbConfig.USER,
+	password: dbConfig.PASSWORD,
+	database: dbConfig.DB,
 });
 
-connection.connect((err) => {
-	if (err) {
-		throw err;
-	}
-});
+// connection.connect((err) => {
+// 	if (err) {
+// 		throw err;
+// 	}
+// });
 
 app.get('/addstudent', (req, res) => {
 	let info = {
@@ -91,12 +100,32 @@ app.get('/checkRoom', (req, res) => {
 	const sql = `SELECT room FROM students WHERE email=?`;
 	connection.query(sql, [email], (err, result) => {
 		if (err) {
-			result;
+			return err;
 		}
 		res.json(result);
 	});
 });
 
-app.listen('4000', () => {
-	console.log('Server Started Sucessfull');
+app.get('/getUnavailableRoomGirl', (req, res) => {
+	const sql = `SELECT room from students WHERE gender='Female' AND room IS NOT NULL`;
+	connection.query(sql, (err, result) => {
+		if (err) {
+			return err;
+		}
+		res.json(result);
+	});
+});
+
+app.get('/getUnavailableRoomBoy', (req, res) => {
+	const sql = `SELECT room from students WHERE gender='Male' AND room IS NOT NULL`;
+	connection.query(sql, (err, result) => {
+		if (err) {
+			return err;
+		}
+		res.json(result);
+	});
+});
+
+app.listen(PORT, () => {
+	console.log(`Server is running on PORT ${PORT}`);
 });

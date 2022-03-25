@@ -1,25 +1,35 @@
-choosingButtonThatShouldWork();
-
 const loaded = document.querySelector('.loading');
 const btn = document.querySelectorAll('.btnHostel');
 
 const email = window.localStorage.getItem('email');
-
-// buttons related to gender
+/**
+ * variables that stores the access to the buttons using ids
+ * @type {object}
+ * @constant
+ */
 const girlBtn = document.getElementById('btnG');
 const boyBtn = document.getElementById('btnB');
 
-let loadedInfo = {
-	gender: false,
-	room: false,
-};
+const haveRoom = window.localStorage.getItem('haveRoom');
+
+/**
+ * if a user chooses a room, it addes a localstorage with the key of haveroom and it checks if the data stored is true if it is, user can't click on the button to choose the room page
+ */
+if (haveRoom === 'true') {
+	btn.forEach((button) => {
+		button.disabled = true;
+		button.style.opacity = '0.4';
+	});
+}
 
 /**
  * it chooses which of the gender hostel you are allowed to click on based on your gender
  */
 function choosingButtonThatShouldWork() {
 	let gender;
-	fetch(`http://localhost:4000/getGender?email=${email}`)
+	fetch(`https://hostel-picking.herokuapp.com/getGender?email=${email}`, {
+		mode: 'no-cors',
+	})
 		.then((res) => {
 			res.json().then((data) => {
 				gender = data;
@@ -36,20 +46,18 @@ function choosingButtonThatShouldWork() {
 						window.location.href = './pages/PageChoosing/pagePicking.html';
 					});
 				});
-				checkingRoom();
-				loadedInfo.gender = true;
+				loaded.style.display = 'none';
 			});
 		})
 		.catch((err) => {
-			console.log(err);
+			return err;
 		});
 }
 
-/**
- * function to check if the user already has a room
- */
 function checkingRoom() {
-	fetch(`http://localhost:4000/checkRoom?email=${email}`)
+	fetch(`https://hostel-picking.herokuapp.com/checkRoom?email=${email}`, {
+		mode: 'no-cors',
+	})
 		.then((res) => res.json())
 		.then((data) => {
 			data.forEach((result) => {
@@ -60,6 +68,13 @@ function checkingRoom() {
 					window.localStorage.setItem('haveRoom', true);
 				}
 			});
-			loadedInfo.room = true;
+			choosingButtonThatShouldWork();
 		});
 }
+
+(() => {
+	if (email === null || email === '') {
+	} else {
+		checkingRoom();
+	}
+})();
