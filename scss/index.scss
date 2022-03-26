@@ -4,6 +4,7 @@ $primary-color: #070944;
 $secondary-color: #dfe2ff;
 
 body {
+	position: relative;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -13,7 +14,7 @@ body {
 header {
 	position: fixed;
 	top: 0;
-	z-index: 10000;
+	z-index: 10;
 	padding-left: 30px;
 	padding-right: 30px;
 	display: flex;
@@ -151,7 +152,52 @@ main {
 }
 
 .loading {
-	font-size: 4em;
-	color: $primary-color;
-	font-weight: 700;
+	background-color: #fff;
+	position: fixed;
+	top: 0%;
+	z-index: 100;
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	div {
+		height: 150px;
+		width: 150px;
+		border-radius: 50%;
+		background-color: transparent;
+		animation-name: loader;
+		animation-duration: 200ms;
+		animation-iteration-count: infinite;
+		animation-fill-mode: both;
+
+		.dot {
+			height: 50px;
+			width: 50px;
+			background-color: #070944;
+		}
+	}
+}
+
+@keyframes loader {
+	0% {
+		transform: rotate(0deg);
+	}
+	20% {
+		transform: rotate(72deg);
+	}
+	40% {
+		transform: rotate(144deg);
+	}
+	60% {
+		transform: rotate(216deg);
+	}
+	80% {
+		transform: rotate(288deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

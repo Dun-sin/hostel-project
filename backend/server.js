@@ -1,21 +1,23 @@
 const mysql = require('mysql');
 const express = require('express');
-const cors = require('cors');
 const app = express();
+
+const PORT = process.env.PORT || 3000;
+const dbConfig = require('./db.config');
+
+const cors = require('cors');
 
 app.use(cors());
 
-const connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'dunsin12345',
-	database: 'testing2',
-});
-
-connection.connect((err) => {
-	if (err) {
-		throw err;
-	}
+const connection = mysql.createPool({
+	connectionLimit: 1000,
+	connectTimeout: 60 * 60 * 1000,
+	acquireTimeout: 60 * 60 * 1000,
+	timeout: 60 * 60 * 1000,
+	host: dbConfig.HOST,
+	user: dbConfig.USER,
+	password: dbConfig.PASSWORD,
+	database: dbConfig.DB,
 });
 
 app.get('/addstudent', (req, res) => {
@@ -45,7 +47,7 @@ app.get('/addstudent', (req, res) => {
 app.get('/checkstudent', (req, res) => {
 	const email = req.query.email;
 	const password = req.query.password;
-	const sql = `SELECT password FROM students WHERE email = ?`;
+	const sql = `SELECT password FROM students WHERE email=?`;
 	connection.query(sql, [email], (err, result) => {
 		if (err) {
 			return;
@@ -91,12 +93,32 @@ app.get('/checkRoom', (req, res) => {
 	const sql = `SELECT room FROM students WHERE email=?`;
 	connection.query(sql, [email], (err, result) => {
 		if (err) {
-			result;
+			return;
 		}
 		res.json(result);
 	});
 });
 
-app.listen('4000', () => {
-	console.log('Server Started Sucessfull');
+app.get('/getUnavailableRoomGirl', (req, res) => {
+	const sql = `SELECT room from students WHERE gender='Female' AND room IS NOT NULL`;
+	connection.query(sql, (err, result) => {
+		if (err) {
+			return;
+		}
+		res.json(result);
+	});
+});
+
+app.get('/getUnavailableRoomBoy', (req, res) => {
+	const sql = `SELECT room from students WHERE gender='Male' AND room IS NOT NULL`;
+	connection.query(sql, (err, result) => {
+		if (err) {
+			return;
+		}
+		res.json(result);
+	});
+});
+
+app.listen(PORT, () => {
+	console.log(`Server is running on PORT ${PORT}`);
 });

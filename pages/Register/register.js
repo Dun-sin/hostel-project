@@ -16,6 +16,9 @@ const gender = document.getElementById('gender');
 // error
 const error = document.getElementById('error');
 
+const registerWord = document.getElementById('registerWord');
+const load = document.getElementById('loading');
+
 let okay = {
 	firstName: false,
 	lastName: false,
@@ -38,6 +41,8 @@ form.addEventListener('submit', (e) => {
 		programme.value,
 		gender.value,
 	);
+	load.style.display = 'flex';
+	registerWord.style.display = 'none';
 });
 
 const genderVali = (gen) => {
@@ -157,9 +162,11 @@ const deleting = () => {
 		if (error.childElementCount === 0) {
 			clearInterval(interval);
 		} else {
+			load.style.display = 'none';
+			registerWord.style.display = 'flex';
 			error.removeChild(error.firstElementChild);
 		}
-	}, 2000);
+	}, 1500);
 };
 
 const collectingInfo = (
@@ -177,7 +184,7 @@ const collectingInfo = (
 			firstName = firstName.toLowerCase();
 			lastName = lastName.toLowerCase();
 			fetch(
-				`http://localhost:4000/addstudent?fName=${firstName}&lName=${lastName}&email=${email}&password=${password}&faculty=${faculty}&programme=${programme}&gender=${gender}`,
+				`https://hostel-picking.herokuapp.com/addstudent?fName=${firstName}&lName=${lastName}&email=${email}&password=${password}&faculty=${faculty}&programme=${programme}&gender=${gender}`,
 			).then((res) => {
 				switch (res.status) {
 					case 409:
@@ -188,7 +195,6 @@ const collectingInfo = (
 						window.location.replace('../../index.html');
 						break;
 				}
-				res.json();
 			});
 		}
 
@@ -214,7 +220,6 @@ const collectingInfo = (
 		case false:
 			break;
 		case true:
-			console.log('submitted');
 			submit();
 			break;
 	}

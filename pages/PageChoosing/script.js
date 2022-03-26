@@ -1,7 +1,7 @@
-const email = window.localStorage.getItem('email');
 if (email === null || email === '' || email === undefined) {
 	window.location.replace('../Login/Login.html');
 }
+
 // Elements SECTIONS
 const buildings = document.querySelectorAll('.hostel-rooms');
 const confirmButton = document.querySelector('.confirm-button');
@@ -24,12 +24,12 @@ const errorContainer = document.getElementById('errors');
 
 const gender = window.localStorage.getItem('gender');
 
-// variable to determine if user already has a room
+const unavailableRoom = [];
 
 // API SECTION
 function addroom(email, room, level) {
 	fetch(
-		`http://localhost:4000/addRoom?email=${email}&room=${room}&level=${level}`,
+		`https://hostel-picking.herokuapp.com/addRoom?email=${email}&room=${room}&level=${level}`,
 	)
 		.then((res) => {
 			switch (res.status) {
@@ -38,28 +38,47 @@ function addroom(email, room, level) {
 					break;
 			}
 			res.json();
+			window.location.replace('../../index.html');
 		})
-		.catch((err) => console.log(err));
+		.catch((err) => err);
 }
 
 // ROOM SECTION
 if (gender === 'Female') {
 	girlsHostel.style.display = 'flex';
 	boysHostel.style.display = 'none';
+	checkUnavailableRoomGirl();
 } else {
 	girlsHostel.style.display = 'none';
 	boysHostel.style.display = 'flex';
+	checkUnavailableRoomBoy();
 }
 
 // generate the number of rooms
-const generateRooms = (total) => {
+const generateRooms = (total, bedNo) => {
 	let rooms = Array(total)
 		.fill()
-		.map((_, i) => `<p class="room">${i + 1}</p>`)
+		.map((_, i) => noForGender(i))
 		.join('');
-
 	for (let building of buildings) {
 		building.innerHTML = rooms;
+	}
+
+	function noForGender(i) {
+		if (bedNo === 2) {
+			return `
+          <p class="room">${i + 1}A</p>
+          <p class="room">${i + 1}B</p>
+          `;
+		} else if (bedNo === 4) {
+			return `
+        <p class="room">${i + 1}A</p>
+        <p class="room">${i + 1}B</p>
+        <p class="room">${i + 1}C</p>
+        <p class="room">${i + 1}D</p>
+        `;
+		}
+		return '';
 	}
 
 	initializeRoomSelection();
@@ -71,10 +90,20 @@ const initializeRoomSelection = () => {
 	let availableRooms = document.querySelectorAll('.room');
 	for (room of availableRooms) {
 		if (haveRoom === 'false') {
+			removeRoom();
 			room.addEventListener('click', selectRoom);
 		} else if (haveRoom === 'true') {
+			removeRoom();
 			room.style.opacity = 0.4;
 			confirmButton.style.display = 'none';
+		}
+	}
+
+	function removeRoom() {
+		for (let i = 0; i < unavailableRoom.length; i++) {
+			if (room.innerText === unavailableRoom[i]) {
+				room.style.display = 'none';
+			}
 		}
 	}
 };
@@ -116,12 +145,15 @@ const initializeModal = () => {
 					return;
 				} else {
 					const levelValue = level.value;
-					addroom(email, room, levelValue);
-					window.location.replace('../../index.html');
+					if (haveRoom === 'true') {
+						createError('You already have a room', 'existingRoom');
+					} else {
+						addroom(email, room, levelValue);
+					}
 				}
 			}
 		} catch (err) {
-			console.log(err);
+			return err;
 		} finally {
 			toggleModal();
 		}
@@ -158,16 +190,40 @@ function createError(message, id) {
 }
 
 function levelVali(level) {
-	if (level === 'pick your level') {
+	if (level === 'Select a Level') {
 		createError('Please select your Level', 'levelID');
 		return false;
-	} else {
+	} else if (level === '100' || level === '200') {
 		return true;
 	}
 }
 
+function checkUnavailableRoomGirl() {
+	fetch(`https://hostel-picking.herokuapp.com/getUnavailableRoomGirl`)
+		.then((res) => res.json())
+		.then((data) => {
+			data.forEach((result) => {
+				unavailableRoom.push(result.room);
+			});
+			loaded.style.display = 'none';
+			creatingRooms(50, 2);
+		});
+}
+
+function checkUnavailableRoomBoy() {
+	fetch(`https://hostel-picking.herokuapp.com/getUnavailableRoomBoy`)
+		.then((res) => res.json())
+		.then((data) => {
+			data.forEach((result) => {
+				unavailableRoom.push(result.room);
+			});
+			loaded.style.display = 'none';
+			creatingRooms(50, 4);
+		});
+}
+
 // creating and calling the function at the same time
-(() => {
-	generateRooms(50);
+function creatingRooms(number, numOfBed) {
+	generateRooms(number, numOfBed);
 	initializeModal();
-})();
+}

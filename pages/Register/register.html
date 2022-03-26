@@ -22,11 +22,7 @@
           <option value="Female">Female</option>
           <option value="Male">Male</option>
         </select>
-				<select id="level">
-					<option value="Select Your Level">Select Your Level</option>
-					<option value="100">100 Level</option>
-					<option value="200">200 Level</option>
-				</select>
+
 				<select id="fac">
 					<option value="Select Your Faculty">Select Your Faculty</option>
 					<option value="Basic and Applied Science">
@@ -112,7 +108,14 @@
 						</option>
 					</optgroup>
 				</select>
-				<button type="submit">Register</button>
+				<button type="submit">
+          <p id="registerWord">Register</p>
+					<div style="display: none" id="loading">
+						<div>
+							<div class="dot"></div>
+						</div>
+						<p>Please Wait</p>
+					</div></button>
 			</form>
 		</main>
 		<div id="error"></div>

@@ -1,5 +1,5 @@
 body {
-  background-color: #07094448;
+  background-color: #fff;
   overflow: hidden;
   height: 90vh;
   width: 100vw;
@@ -65,6 +65,9 @@ main form button {
   height: 30px;
   width: 100px;
   transition: all 500ms ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 main form button:hover {
   box-shadow: inset 100px 0 0 0 #d3d4ff;
@@ -89,6 +92,55 @@ main form button:hover {
   margin-bottom: 10px;
   background-color: #070944;
   color: #dfe2ff;
+}
+
+#loading {
+  color: #070944;
+  height: 15px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#loading div {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  animation-name: loader;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+#loading div .dot {
+  height: 10px;
+  width: 10px;
+  background-color: white;
+}
+#loading p {
+  color: white;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(72deg);
+  }
+  40% {
+    transform: rotate(144deg);
+  }
+  60% {
+    transform: rotate(216deg);
+  }
+  80% {
+    transform: rotate(288deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=register.css.map */

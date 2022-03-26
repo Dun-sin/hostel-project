@@ -14,7 +14,15 @@
 			<form id="form">
 				<input type="email" id="email" placeholder="Enter Your Email" />
 				<input type="password" id="pass" placeholder="Enter Your Password" />
-				<button type="submit" id="button">Login</button>
+				<button type="submit" id="button">
+					<p id="loginWord">Login</p>
+					<div style="display: none" class="loading">
+						<div>
+							<div class="dot"></div>
+						</div>
+						<p>Please Wait</p>
+					</div>
+				</button>
 			</form>
 		</main>
 		<div id="error"></div>
