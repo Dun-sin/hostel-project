@@ -156,6 +156,7 @@ const initializeModal = () => {
 			return err;
 		} finally {
 			toggleModal();
+			window.location.replace('../../index.html');
 		}
 	});
 

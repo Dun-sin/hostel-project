@@ -4,6 +4,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 const dbConfig = require('./db.config');
+<<<<<<< HEAD
 
 const cors = require('cors');
 
@@ -19,6 +20,30 @@ const connection = mysql.createPool({
 	password: dbConfig.PASSWORD,
 	database: dbConfig.DB,
 });
+=======
+
+const cors = require('cors');
+const corsOptions = {
+	origin: ['http://localhost:5500/'],
+	credentials: true,
+	methods: 'GET',
+};
+
+app.use(cors(corsOptions));
+
+const connection = mysql.createConnection({
+	host: dbConfig.HOST,
+	user: dbConfig.USER,
+	password: dbConfig.PASSWORD,
+	database: dbConfig.DB,
+});
+
+// connection.connect((err) => {
+// 	if (err) {
+// 		throw err;
+// 	}
+// });
+>>>>>>> 0bede7f6b0edd0b90e170c25257ceacd08be9f6c
 
 app.get('/addstudent', (req, res) => {
 	let info = {
@@ -93,7 +118,11 @@ app.get('/checkRoom', (req, res) => {
 	const sql = `SELECT room FROM students WHERE email=?`;
 	connection.query(sql, [email], (err, result) => {
 		if (err) {
+<<<<<<< HEAD
 			return;
+=======
+			return err;
+>>>>>>> 0bede7f6b0edd0b90e170c25257ceacd08be9f6c
 		}
 		res.json(result);
 	});
@@ -103,7 +132,11 @@ app.get('/getUnavailableRoomGirl', (req, res) => {
 	const sql = `SELECT room from students WHERE gender='Female' AND room IS NOT NULL`;
 	connection.query(sql, (err, result) => {
 		if (err) {
+<<<<<<< HEAD
 			return;
+=======
+			return err;
+>>>>>>> 0bede7f6b0edd0b90e170c25257ceacd08be9f6c
 		}
 		res.json(result);
 	});
@@ -113,7 +146,11 @@ app.get('/getUnavailableRoomBoy', (req, res) => {
 	const sql = `SELECT room from students WHERE gender='Male' AND room IS NOT NULL`;
 	connection.query(sql, (err, result) => {
 		if (err) {
+<<<<<<< HEAD
 			return;
+=======
+			return err;
+>>>>>>> 0bede7f6b0edd0b90e170c25257ceacd08be9f6c
 		}
 		res.json(result);
 	});
