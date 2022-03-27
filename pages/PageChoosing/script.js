@@ -28,9 +28,17 @@ const unavailableRoom = [];
 
 // API SECTION
 function addroom(email, room, level) {
-	fetch(
-		`https://hostel-picking.herokuapp.com/addRoom?email=${email}&room=${room}&level=${level}`,
-	)
+	fetch(`https://hostel-picking.herokuapp.com/addRoom`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			email: email,
+			room: room,
+			level: level,
+		}),
+	})
 		.then((res) => {
 			switch (res.status) {
 				case 400:

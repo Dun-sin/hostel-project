@@ -31,16 +31,17 @@ let okay = {
 
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
-	collectingInfo(
-		fName.value,
-		lName.value,
-		em.value,
-		pass.value,
-		cpass.value,
-		faculty.value,
-		programme.value,
-		gender.value,
-	);
+	const infoObject = {
+		firstName: fName.value.toLowerCase(),
+		lastName: lName.value.toLowerCase(),
+		email: em.value,
+		password: pass.value,
+		confirmPassword: cpass.value,
+		faculty: faculty.value,
+		programme: programme.value,
+		gender: gender.value,
+	};
+	collectingInfo(infoObject);
 	load.style.display = 'flex';
 	registerWord.style.display = 'none';
 });
@@ -149,6 +150,7 @@ const passwordVali = (password, confirmPassword) => {
 	} else {
 		errorMessage(`Password must be 8 letters or more`, 'lenID');
 	}
+	console.log(password, confirmPassword);
 };
 
 const isOkayTrue = (obj) => {
@@ -169,51 +171,37 @@ const deleting = () => {
 	}, 1500);
 };
 
-const collectingInfo = (
-	firstName,
-	lastName,
-	email,
-	password,
-	confirmPassword,
-	faculty,
-	programme,
-	gender,
-) => {
+const collectingInfo = (userData) => {
 	const submit = () => {
 		function addStudents() {
-			firstName = firstName.toLowerCase();
-			lastName = lastName.toLowerCase();
-			fetch(
-				`https://hostel-picking.herokuapp.com/addstudent?fName=${firstName}&lName=${lastName}&email=${email}&password=${password}&faculty=${faculty}&programme=${programme}&gender=${gender}`,
-			).then((res) => {
+			fetch(`https://hostel-picking.herokuapp.com/addstudent`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(userData),
+			}).then((res) => {
 				switch (res.status) {
 					case 409:
 						errorMessage('Already Registered', 'regID');
 						break;
 					case 200:
-						window.localStorage.setItem('email', email);
+						window.localStorage.setItem('email', userData.email);
 						window.location.replace('../../index.html');
 						break;
 				}
 			});
 		}
 
-		addStudents(
-			firstName,
-			lastName,
-			email,
-			confirmPassword,
-			faculty,
-			programme,
-		);
+		addStudents();
 	};
 
-	firstLastNameVali(firstName, lastName);
-	emailVali(firstName, lastName, email);
-	passwordVali(password, confirmPassword);
-	facultyVali(faculty);
-	programVali(programme);
-	genderVali(gender);
+	firstLastNameVali(userData.firstName, userData.lastName);
+	emailVali(userData.firstName, userData.lastName, userData.email);
+	passwordVali(userData.password, userData.confirmPassword);
+	facultyVali(userData.faculty);
+	programVali(userData.programme);
+	genderVali(userData.gender);
 	deleting();
 
 	switch (isOkayTrue(okay)) {

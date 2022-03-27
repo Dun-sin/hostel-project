@@ -7,6 +7,8 @@ const dbConfig = require('./db.config');
 
 const cors = require('cors');
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cors());
 
 const connection = mysql.createPool({
@@ -20,15 +22,15 @@ const connection = mysql.createPool({
 	database: dbConfig.DB,
 });
 
-app.get('/addstudent', (req, res) => {
+app.post('/addstudent', (req, res) => {
 	let info = {
-		firstName: req.query.fName,
-		lastName: req.query.lName,
-		email: req.query.email,
-		password: req.query.password,
-		faculty: req.query.faculty,
-		programme: req.query.programme,
-		gender: req.query.gender,
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		email: req.body.email,
+		password: req.body.password,
+		faculty: req.body.faculty,
+		programme: req.body.programme,
+		gender: req.body.gender,
 	};
 	const sql = 'INSERT INTO students SET ?';
 	connection.query(sql, info, (err) => {
@@ -46,7 +48,6 @@ app.get('/addstudent', (req, res) => {
 
 app.get('/checkstudent', (req, res) => {
 	const email = req.query.email;
-	const password = req.query.password;
 	const sql = `SELECT password FROM students WHERE email=?`;
 	connection.query(sql, [email], (err, result) => {
 		if (err) {
@@ -55,11 +56,7 @@ app.get('/checkstudent', (req, res) => {
 		if (result.length === 0) {
 			res.status(500).send();
 		} else {
-			if (result[0].password === password) {
-				res.status(200).send();
-			} else {
-				res.status(502).send();
-			}
+			res.json(result[0].password);
 		}
 	});
 });
@@ -76,10 +73,10 @@ app.get('/getGender', (req, res) => {
 });
 
 // adds the students room
-app.get('/addRoom', (req, res) => {
-	const email = req.query.email;
-	const room = req.query.room;
-	const level = req.query.level;
+app.put('/addRoom', (req, res) => {
+	const email = req.body.email;
+	const room = req.body.room;
+	const level = req.body.level;
 	const sql = `UPDATE students set room=?, level=?  WHERE email=?`;
 	connection.query(sql, [room, level, email], (err) => {
 		if (err) {
@@ -89,11 +86,12 @@ app.get('/addRoom', (req, res) => {
 });
 
 app.get('/checkRoom', (req, res) => {
+	// console.log(req.b);
 	const email = req.query.email;
 	const sql = `SELECT room FROM students WHERE email=?`;
 	connection.query(sql, [email], (err, result) => {
 		if (err) {
-			return;
+			console.log(err);
 		}
 		res.json(result);
 	});
@@ -103,7 +101,7 @@ app.get('/getUnavailableRoomGirl', (req, res) => {
 	const sql = `SELECT room from students WHERE gender='Female' AND room IS NOT NULL`;
 	connection.query(sql, (err, result) => {
 		if (err) {
-			return;
+			console.log(err);
 		}
 		res.json(result);
 	});

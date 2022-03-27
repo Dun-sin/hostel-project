@@ -70,22 +70,23 @@ const emailVali = (email) => {
 
 function onSubmitted(email, password) {
 	function loginSuc() {
-		fetch(
-			`https://hostel-picking.herokuapp.com/checkstudent?email=${email}&password=${password}`,
-		)
+		fetch(`https://hostel-picking.herokuapp.com/checkstudent?email=${email}`)
 			.then((res) => {
 				switch (res.status) {
 					case 500:
 						errorMessage(`Email doesn't exist`, 'emailNot');
 						deleting();
 						break;
-					case 502:
-						errorMessage(`Password isn't correct`, 'passNot');
-						deleting();
-						break;
 					case 200:
-						window.localStorage.setItem('email', email);
-						window.location.replace('../../index.html');
+						res.json().then((data) => {
+							if (data === password) {
+								window.localStorage.setItem('email', email);
+								window.location.replace('../../index.html');
+							} else {
+								errorMessage(`Password isn't correct`, 'passNot');
+								deleting();
+							}
+						});
 						break;
 				}
 			})
