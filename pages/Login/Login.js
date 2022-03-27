@@ -11,9 +11,13 @@ let okay = {
 
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
-	onSubmitted(email.value, password.value);
-	loginWord.style.display = 'none';
-	loading.style.display = 'flex';
+	if (password.value === '' || email.value === '') {
+		return;
+	} else {
+		onSubmitted(email.value, password.value);
+		loginWord.style.display = 'none';
+		loading.style.display = 'flex';
+	}
 });
 
 const repeat = (id) => {
@@ -29,6 +33,10 @@ const deleting = () => {
 		if (error.childElementCount === 0) {
 			clearInterval(interval);
 		} else {
+			if (error.childElementCount === 1) {
+				loginWord.style.display = 'flex';
+				loading.style.display = 'none';
+			}
 			error.removeChild(error.firstElementChild);
 		}
 		loginWord.style.display = 'flex';
@@ -58,6 +66,8 @@ const emailVali = (email) => {
 	}
 };
 
+// function
+
 function onSubmitted(email, password) {
 	function loginSuc() {
 		fetch(
@@ -67,9 +77,11 @@ function onSubmitted(email, password) {
 				switch (res.status) {
 					case 500:
 						errorMessage(`Email doesn't exist`, 'emailNot');
+						deleting();
 						break;
 					case 502:
 						errorMessage(`Password isn't correct`, 'passNot');
+						deleting();
 						break;
 					case 200:
 						window.localStorage.setItem('email', email);
