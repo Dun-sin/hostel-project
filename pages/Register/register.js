@@ -150,7 +150,6 @@ const passwordVali = (password, confirmPassword) => {
 	} else {
 		errorMessage(`Password must be 8 letters or more`, 'lenID');
 	}
-	console.log(password, confirmPassword);
 };
 
 const isOkayTrue = (obj) => {

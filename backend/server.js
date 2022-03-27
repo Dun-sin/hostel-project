@@ -7,9 +7,11 @@ const dbConfig = require('./db.config');
 
 const cors = require('cors');
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 app.use(cors());
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json());
 
 const connection = mysql.createPool({
 	connectionLimit: 1000,
@@ -63,7 +65,7 @@ app.get('/checkstudent', (req, res) => {
 
 app.get('/getGender', (req, res) => {
 	const email = req.query.email;
-	const sql = `SELECT gender FROM students WHERE email = ?`;
+	const sql = `SELECT gender FROM students WHERE email=?`;
 	connection.query(sql, [email], (err, result) => {
 		if (err) {
 			res.status(400).send();
@@ -86,12 +88,11 @@ app.put('/addRoom', (req, res) => {
 });
 
 app.get('/checkRoom', (req, res) => {
-	// console.log(req.b);
 	const email = req.query.email;
 	const sql = `SELECT room FROM students WHERE email=?`;
 	connection.query(sql, [email], (err, result) => {
 		if (err) {
-			console.log(err);
+			return err;
 		}
 		res.json(result);
 	});
@@ -101,7 +102,7 @@ app.get('/getUnavailableRoomGirl', (req, res) => {
 	const sql = `SELECT room from students WHERE gender='Female' AND room IS NOT NULL`;
 	connection.query(sql, (err, result) => {
 		if (err) {
-			console.log(err);
+			return err;
 		}
 		res.json(result);
 	});
@@ -118,5 +119,5 @@ app.get('/getUnavailableRoomBoy', (req, res) => {
 });
 
 app.listen(PORT, () => {
-	console.log(`Server is running on PORT ${PORT}`);
+	return `Server is running on PORT ${PORT}`;
 });
