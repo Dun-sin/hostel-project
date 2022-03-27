@@ -170,11 +170,6 @@ main .hostel .btn:hover {
 	background-color: #070944;
 }
 
-.loading p {
-	margin-top: 80px;
-	font-size: 2em;
-}
-
 @keyframes loader {
 	0% {
 		transform: rotate(0deg);
