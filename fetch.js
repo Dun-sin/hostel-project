@@ -27,13 +27,7 @@ if (haveRoom === 'true') {
  */
 function choosingButtonThatShouldWork() {
 	let gender;
-<<<<<<< HEAD
 	fetch(`https://hostel-picking.herokuapp.com/getGender?email=${email}`)
-=======
-	fetch(`https://hostel-picking.herokuapp.com/getGender?email=${email}`, {
-		mode: 'no-cors',
-	})
->>>>>>> 0bede7f6b0edd0b90e170c25257ceacd08be9f6c
 		.then((res) => {
 			res.json().then((data) => {
 				gender = data;
@@ -59,13 +53,7 @@ function choosingButtonThatShouldWork() {
 }
 
 function checkingRoom() {
-<<<<<<< HEAD
 	fetch(`https://hostel-picking.herokuapp.com/checkRoom?email=${email}`)
-=======
-	fetch(`https://hostel-picking.herokuapp.com/checkRoom?email=${email}`, {
-		mode: 'no-cors',
-	})
->>>>>>> 0bede7f6b0edd0b90e170c25257ceacd08be9f6c
 		.then((res) => res.json())
 		.then((data) => {
 			data.forEach((result) => {
