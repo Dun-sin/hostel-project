@@ -44,9 +44,11 @@ function addroom(email, room, level) {
 				case 400:
 					pickedError.style.display = 'block';
 					break;
+				case 200:
+					window.localStorage.setItem('haveRoom', 'true');
+					window.location.replace('../../index.html');
+					break;
 			}
-			res.json();
-			window.location.replace('../../index.html');
 		})
 		.catch((err) => err);
 }
@@ -156,6 +158,7 @@ const initializeModal = () => {
 					if (haveRoom === 'true') {
 						createError('You already have a room', 'existingRoom');
 					} else {
+						loaded.style.display = 'flex';
 						addroom(email, room, levelValue);
 					}
 				}
@@ -164,7 +167,6 @@ const initializeModal = () => {
 			return err;
 		} finally {
 			toggleModal();
-			window.location.replace('../../index.html');
 		}
 	});
 

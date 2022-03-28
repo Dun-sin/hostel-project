@@ -83,6 +83,10 @@ app.put('/addRoom', (req, res) => {
 	connection.query(sql, [room, level, email], (err) => {
 		if (err) {
 			return;
+		} else {
+			if (res.json().statusCode === 200) {
+				res.status(200).send();
+			}
 		}
 	});
 });
